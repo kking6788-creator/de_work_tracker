@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>근무시간 체커</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, 'SF Pro Display', sans-serif;
+    background: #F0F2F7;
+    min-height: 100vh;
+    padding: 20px 16px 40px;
+    color: #1C1C1E;
+  }
+
+  h1 {
+    font-size: 26px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 4px;
+    color: #1C1C1E;
+  }
+
+  .subtitle {
+    text-align: center;
+    font-size: 13px;
+    color: #8E8E93;
+    margin-bottom: 20px;
+  }
+
+  /* 상단 요약 카드 */
+  .summary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .summary-card {
+    background: white;
+    border-radius: 18px;
+    padding: 18px 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+
+  .summary-card.full {
+    grid-column: 1 / -1;
+  }
+
+  .summary-label {
+    font-size: 12px;
+    color: #8E8E93;
+    font-weight: 500;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .summary-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1C1C1E;
+  }
+
+  .summary-value.accent { color: #007AFF; }
+  .summary-value.green  { color: #34C759; }
+  .summary-value.red    { color: #FF3B30; }
+  .summary-value.orange { color: #FF9500; }
+
+  /* 진행 바 */
+  .progress-wrap {
+    background: white;
+    border-radius: 18px;
+    padding: 18px 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    margin-bottom: 20px;
+  }
+
+  .progress-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: #8E8E93;
+    margin-bottom: 10px;
+  }
+
+  .progress-bar-bg {
+    background: #E5E5EA;
+    border-radius: 8px;
+    height: 14px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    border-radius: 8px;
+    transition: width 0.5s ease;
+    background: linear-gradient(90deg, #007AFF, #5AC8FA);
+  }
+
+  .progress-bar-fill.over {
+    background: linear-gradient(90deg, #FF9500, #FF3B30);
+  }
+
+  /* 요일 입력 섹션 */
+  .days-section {
+    background: white;
+    border-radius: 18px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+
+  .days-title {
+    font-size: 15px;
+    font-weight: 600;
+    padding: 16px 16px 0;
+    color: #1C1C1E;
+    margin-bottom: 12px;
+  }
+
+  .day-row {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid #F2F2F7;
+    gap: 10px;
+  }
+
+  .day-row:last-child { border-bottom: none; }
+
+  .day-name {
+    font-size: 15px;
+    font-weight: 600;
+    width: 28px;
+    color: #1C1C1E;
+    flex-shrink: 0;
+  }
+
+  .day-name.weekend { color: #FF3B30; }
+
+  .input-group {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex: 1;
+  }
+
+  .time-input {
+    width: 52px;
+    padding: 8px 6px;
+    border: 1.5px solid #E5E5EA;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    color: #1C1C1E;
+    background: #F9F9FB;
+    -webkit-appearance: none;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .time-input:focus {
+    border-color: #007AFF;
+    background: white;
+  }
+
+  .time-label {
+    font-size: 13px;
+    color: #8E8E93;
+  }
+
+  .day-total {
+    font-size: 14px;
+    font-weight: 600;
+    color: #007AFF;
+    min-width: 48px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .day-total.zero { color: #C7C7CC; }
+
+  /* 리셋 버튼 */
+  .reset-btn {
+    width: 100%;
+    padding: 16px;
+    background: #FF3B30;
+    color: white;
+    border: none;
+    border-radius: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 12px rgba(255,59,48,0.25);
+    transition: opacity 0.15s;
+  }
+
+  .reset-btn:active { opacity: 0.75; }
+
+  .week-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    background: white;
+    border-radius: 18px;
+    padding: 14px 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+
+  .week-nav button {
+    background: #F0F2F7;
+    border: none;
+    border-radius: 10px;
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+    cursor: pointer;
+    color: #007AFF;
+  }
+
+  .week-label {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1C1C1E;
+  }
+</style>
+</head>
+<body>
+
+<h1>⏱ 근무시간 체커</h1>
+<p class="subtitle">주 20시간 기준</p>
+
+<!-- 주차 네비 -->
+<div class="week-nav">
+  <button onclick="changeWeek(-1)">‹</button>
+  <span class="week-label" id="weekLabel"></span>
+  <button onclick="changeWeek(1)">›</button>
+</div>
+
+<!-- 요약 카드 -->
+<div class="summary-grid">
+  <div class="summary-card">
+    <div class="summary-label">누적 근무</div>
+    <div class="summary-value accent" id="totalWorked">0h 0m</div>
+  </div>
+  <div class="summary-card">
+    <div class="summary-label">잔여 시간</div>
+    <div class="summary-value green" id="remaining">20h 0m</div>
+  </div>
+</div>
+
+<!-- 진행 바 -->
+<div class="progress-wrap">
+  <div class="progress-header">
+    <span>이번 주 진행률</span>
+    <span id="progressPct">0%</span>
+  </div>
+  <div class="progress-bar-bg">
+    <div class="progress-bar-fill" id="progressBar" style="width:0%"></div>
+  </div>
+</div>
+
+<!-- 요일별 입력 -->
+<div class="days-section">
+  <div class="days-title">요일별 근무 입력</div>
+  <div id="dayRows"></div>
+</div>
+
+<!-- 리셋 -->
+<button class="reset-btn" onclick="resetWeek()">🗑 이번 주 초기화</button>
+
+<script>
+const DAYS = ['월','화','수','목','금','토','일'];
+const WEEKEND = [5, 6];
+const GOAL = 20 * 60; // 20시간 (분)
+
+let currentWeekKey = getWeekKey(new Date());
+
+function getWeekKey(date) {
+  const d = new Date(date);
+  d.setHours(0,0,0,0);
+  d.setDate(d.getDate() - ((d.getDay() + 6) % 7)); // 월요일 기준
+  return d.toISOString().slice(0,10);
+}
+
+function getWeekLabel(weekKey) {
+  const start = new Date(weekKey);
+  const end = new Date(weekKey);
+  end.setDate(end.getDate() + 6);
+  const fmt = d => `${d.getMonth()+1}/${d.getDate()}`;
+  return `${fmt(start)} ~ ${fmt(end)}`;
+}
+
+function changeWeek(delta) {
+  const d = new Date(currentWeekKey);
+  d.setDate(d.getDate() + delta * 7);
+  currentWeekKey = getWeekKey(d);
+  renderApp();
+}
+
+function loadData(weekKey) {
+  const raw = localStorage.getItem('wt_' + weekKey);
+  return raw ? JSON.parse(raw) : DAYS.map(() => ({ h: '', m: '' }));
+}
+
+function saveData(weekKey, data) {
+  localStorage.setItem('wt_' + weekKey, JSON.stringify(data));
+}
+
+function toMinutes(h, m) {
+  const hv = parseInt(h) || 0;
+  const mv = parseInt(m) || 0;
+  return hv * 60 + mv;
+}
+
+function fmtTime(minutes) {
+  const h = Math.floor(Math.abs(minutes) / 60);
+  const m = Math.abs(minutes) % 60;
+  return `${h}h ${m}m`;
+}
+
+function renderApp() {
+  document.getElementById('weekLabel').textContent = getWeekLabel(currentWeekKey);
+
+  const data = loadData(currentWeekKey);
+  const container = document.getElementById('dayRows');
+  container.innerHTML = '';
+
+  let totalMin = 0;
+
+  DAYS.forEach((name, i) => {
+    const row = document.createElement('div');
+    row.className = 'day-row';
+
+    const isWeekend = WEEKEND.includes(i);
+    const mins = toMinutes(data[i].h, data[i].m);
+    totalMin += mins;
+
+    row.innerHTML = `
+      <span class="day-name ${isWeekend ? 'weekend' : ''}">${name}</span>
+      <div class="input-group">
+        <input class="time-input" type="number" min="0" max="24" placeholder="0"
+          value="${data[i].h}" data-idx="${i}" data-type="h"
+          inputmode="numeric" />
+        <span class="time-label">시간</span>
+        <input class="time-input" type="number" min="0" max="59" placeholder="0"
+          value="${data[i].m}" data-idx="${i}" data-type="m"
+          inputmode="numeric" />
+        <span class="time-label">분</span>
+      </div>
+      <span class="day-total ${mins === 0 ? 'zero' : ''}" id="dayTotal_${i}">
+        ${mins > 0 ? fmtTime(mins) : '-'}
+      </span>
+    `;
+    container.appendChild(row);
+  });
+
+  // 인풋 이벤트
+  container.querySelectorAll('.time-input').forEach(input => {
+    input.addEventListener('input', onInput);
+  });
+
+  updateSummary(totalMin);
+}
+
+function onInput(e) {
+  const idx = parseInt(e.target.dataset.idx);
+  const type = e.target.dataset.type;
+  const data = loadData(currentWeekKey);
+  data[idx][type] = e.target.value;
+  saveData(currentWeekKey, data);
+
+  // 해당 행 합계 업데이트
+  const mins = toMinutes(data[idx].h, data[idx].m);
+  const el = document.getElementById('dayTotal_' + idx);
+  el.textContent = mins > 0 ? fmtTime(mins) : '-';
+  el.className = 'day-total ' + (mins === 0 ? 'zero' : '');
+
+  // 전체 합계 재계산
+  let total = 0;
+  data.forEach(d => total += toMinutes(d.h, d.m));
+  updateSummary(total);
+}
+
+function updateSummary(totalMin) {
+  const remMin = GOAL - totalMin;
+  const pct = Math.min(Math.round(totalMin / GOAL * 100), 100);
+
+  document.getElementById('totalWorked').textContent = fmtTime(totalMin);
+
+  const remEl = document.getElementById('remaining');
+  if (remMin >= 0) {
+    remEl.textContent = fmtTime(remMin);
+    remEl.className = 'summary-value green';
+  } else {
+    remEl.textContent = '+' + fmtTime(-remMin) + ' 초과';
+    remEl.className = 'summary-value red';
+  }
+
+  document.getElementById('progressPct').textContent = pct + '%';
+  const bar = document.getElementById('progressBar');
+  bar.style.width = pct + '%';
+  bar.className = 'progress-bar-fill' + (totalMin > GOAL ? ' over' : '');
+}
+
+function resetWeek() {
+  if (confirm('이번 주 기록을 모두 초기화할까요?')) {
+    localStorage.removeItem('wt_' + currentWeekKey);
+    renderApp();
+  }
+}
+
+renderApp();
+</script>
+</body>
+</html>
