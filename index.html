@@ -1,14 +1,17 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="de">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>근무시간 체커</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<title>Arbeitszeiterfassung</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    font-family: -apple-system, 'SF Pro Display', sans-serif;
+    font-family: 'Inter', -apple-system, sans-serif;
     background: #F0F2F7;
     min-height: 100vh;
     padding: 20px 16px 40px;
@@ -150,20 +153,20 @@
 </head>
 <body>
 
-<h1>⏱ 근무시간 체커</h1>
-<p class="subtitle">주 20h · 월 80h (매월 20일~19일)</p>
+<h1>⏱ Arbeitszeiterfassung</h1>
+<p class="subtitle">Wöchentlich 20h · Monatlich 80h (jeweils 20. – 19.)</p>
 
 <!-- 탭 -->
 <div class="tab-bar">
-  <button class="tab-btn active" onclick="switchTab('main')">📋 기록</button>
-  <button class="tab-btn" onclick="switchTab('stats')">📊 통계</button>
+  <button class="tab-btn active" onclick="switchTab('main')">📋 Erfassung</button>
+  <button class="tab-btn" onclick="switchTab('stats')">📊 Statistik</button>
 </div>
 
 <!-- ══════════════ 기록 탭 ══════════════ -->
 <div id="mainTab">
 
   <!-- 주별 섹션 -->
-  <div class="section-title">📅 주별</div>
+  <div class="section-title">📅 Woche</div>
   <div class="nav-bar">
     <button id="weekPrevBtn" onclick="changeWeek(-1)">‹</button>
     <span class="nav-label" id="weekLabel"></span>
@@ -172,20 +175,20 @@
 
   <div class="summary-grid">
     <div class="summary-card">
-      <div class="summary-label">주 누적 근무</div>
+      <div class="summary-label">Woche gesamt</div>
       <div class="summary-value blue" id="wTotal">0h 0m</div>
-      <div class="summary-sub">목표 20h</div>
+      <div class="summary-sub">Ziel 20h</div>
     </div>
     <div class="summary-card">
-      <div class="summary-label">주 잔여 시간</div>
+      <div class="summary-label">Woche verbleibend</div>
       <div class="summary-value green" id="wRemaining">20h 0m</div>
-      <div class="summary-sub" id="wRemSub">남은 시간</div>
+      <div class="summary-sub" id="wRemSub">Verbleibend</div>
     </div>
   </div>
 
   <div class="progress-card">
     <div class="progress-header">
-      <span>주간 진행률</span><span id="wPct">0%</span>
+      <span>Wochenfortschritt</span><span id="wPct">0%</span>
     </div>
     <div class="progress-bar-bg">
       <div class="progress-bar-fill fill-blue" id="wBar" style="width:0%"></div>
@@ -193,16 +196,16 @@
   </div>
 
   <div class="days-section">
-    <div class="days-header">요일별 근무 입력</div>
+    <div class="days-header">Arbeitszeit eingeben</div>
     <div id="dayRows"></div>
   </div>
 
-  <button class="reset-btn week-reset" onclick="resetWeek()">🗑 이번 주 초기화</button>
+  <button class="reset-btn week-reset" onclick="resetWeek()">🗑 Diese Woche zurücksetzen</button>
 
   <div class="divider"></div>
 
   <!-- 월별 섹션 -->
-  <div class="section-title">🗓 월별 (20일~19일)</div>
+  <div class="section-title">🗓 Monat (20. – 19.)</div>
   <div class="nav-bar">
     <button onclick="changeMonth(-1)">‹</button>
     <span class="nav-label" id="monthLabel"></span>
@@ -210,89 +213,89 @@
   </div>
 
   <div id="monthDoneBadge" style="display:none">
-    <span class="done-badge">✅ 이번 달 80시간 달성!</span>
+    <span class="done-badge">✅ 80h Monatsziel erreicht!</span>
   </div>
 
   <div class="summary-grid">
     <div class="summary-card">
-      <div class="summary-label">월 누적 근무</div>
+      <div class="summary-label">Monat gesamt</div>
       <div class="summary-value purple" id="mTotal">0h 0m</div>
-      <div class="summary-sub">목표 80h</div>
+      <div class="summary-sub">Ziel 80h</div>
     </div>
     <div class="summary-card">
-      <div class="summary-label">월 잔여 시간</div>
+      <div class="summary-label">Monat verbleibend</div>
       <div class="summary-value green" id="mRemaining">80h 0m</div>
-      <div class="summary-sub" id="mRemSub">남은 시간</div>
+      <div class="summary-sub" id="mRemSub">Verbleibend</div>
     </div>
   </div>
 
   <div class="progress-card">
     <div class="progress-header">
-      <span>월간 진행률</span><span id="mPct">0%</span>
+      <span>Monatsfortschritt</span><span id="mPct">0%</span>
     </div>
     <div class="progress-bar-bg">
       <div class="progress-bar-fill fill-purple" id="mBar" style="width:0%"></div>
     </div>
   </div>
 
-  <button class="reset-btn month-reset" onclick="resetMonth()">🗑 이번 달 초기화</button>
+  <button class="reset-btn month-reset" onclick="resetMonth()">🗑 Diesen Monat zurücksetzen</button>
 </div>
 
 <!-- ══════════════ 통계 탭 ══════════════ -->
 <div id="statsTab" style="display:none">
 
   <!-- 전체 요약 3개 숫자 -->
-  <div class="section-title">📌 누적 전체</div>
+  <div class="section-title">📌 Gesamtübersicht</div>
   <div class="big-stat-grid">
     <div class="big-stat-card">
       <div class="big-stat-num blue" id="sTotalH">0</div>
-      <div class="big-stat-lbl">총 근무시간</div>
+      <div class="big-stat-lbl">Gesamtstunden</div>
     </div>
     <div class="big-stat-card">
       <div class="big-stat-num purple" id="sTotalWeeks">0</div>
-      <div class="big-stat-lbl">기록된 주차</div>
+      <div class="big-stat-lbl">Erfasste Wochen</div>
     </div>
     <div class="big-stat-card">
       <div class="big-stat-num orange" id="sBestWeek">0h</div>
-      <div class="big-stat-lbl">최고 주간</div>
+      <div class="big-stat-lbl">Beste Woche</div>
     </div>
   </div>
 
   <!-- 이번 달 상세 -->
-  <div class="section-title">📅 이번 달 분석</div>
+  <div class="section-title">📅 Monatsanalyse</div>
   <div class="stat-card">
-    <div class="stat-card-title">월간 현황</div>
-    <div class="stat-row"><span class="stat-row-label">달성률</span><span class="stat-row-val" id="sMonthRate">0%</span></div>
-    <div class="stat-row"><span class="stat-row-label">일평균 근무</span><span class="stat-row-val" id="sMonthAvgDay">0h 0m</span></div>
-    <div class="stat-row"><span class="stat-row-label">80h 달성 예상일</span><span class="stat-row-val" id="sMonthETA">계산 중</span></div>
+    <div class="stat-card-title">Monatsstatus</div>
+    <div class="stat-row"><span class="stat-row-label">Zielerreichung</span><span class="stat-row-val" id="sMonthRate">0%</span></div>
+    <div class="stat-row"><span class="stat-row-label">Ø täglich</span><span class="stat-row-val" id="sMonthAvgDay">0h 0m</span></div>
+    <div class="stat-row"><span class="stat-row-label">80h-Ziel voraussichtlich</span><span class="stat-row-val" id="sMonthETA">계산 중</span></div>
   </div>
 
   <!-- 요일별 평균 히트맵 -->
-  <div class="section-title">📆 요일별 평균 근무</div>
+  <div class="section-title">📆 Ø Arbeitszeit pro Wochentag</div>
   <div class="stat-card">
     <div id="heatmapRows"></div>
   </div>
 
   <!-- 최근 6주 추이 -->
-  <div class="section-title">📈 최근 6주 근무시간</div>
+  <div class="section-title">📈 Letzte 6 Wochen</div>
   <div class="stat-card">
     <div class="bar-chart" id="barChart"></div>
   </div>
 
   <!-- 주간 성과 -->
-  <div class="section-title">🏆 기록</div>
+  <div class="section-title">🏆 Rekorde</div>
   <div class="stat-card">
-    <div class="stat-card-title">주간 기록</div>
-    <div class="stat-row"><span class="stat-row-label">🥇 최고 근무 주</span><span class="stat-row-val" id="sBestWeekDate">-</span></div>
-    <div class="stat-row"><span class="stat-row-label">📉 최저 근무 주</span><span class="stat-row-val" id="sWorstWeekDate">-</span></div>
-    <div class="stat-row"><span class="stat-row-label">🔥 연속 달성 주</span><span class="stat-row-val" id="sStreak">0주</span></div>
-    <div class="stat-row"><span class="stat-row-label">⌀ 주간 평균</span><span class="stat-row-val" id="sWeekAvg">0h 0m</span></div>
+    <div class="stat-card-title">Wochenrekorde</div>
+    <div class="stat-row"><span class="stat-row-label">🥇 Beste Woche</span><span class="stat-row-val" id="sBestWeekDate">-</span></div>
+    <div class="stat-row"><span class="stat-row-label">📉 Schwächste Woche</span><span class="stat-row-val" id="sWorstWeekDate">-</span></div>
+    <div class="stat-row"><span class="stat-row-label">🔥 Wochen in Folge</span><span class="stat-row-val" id="sStreak">0주</span></div>
+    <div class="stat-row"><span class="stat-row-label">⌀ Wochendurchschnitt</span><span class="stat-row-val" id="sWeekAvg">0h 0m</span></div>
   </div>
 
 </div>
 
 <script>
-const DAYS = ['월','화','수','목','금','토'];
+const DAYS = ['Mo','Di','Mi','Do','Fr','Sa'];
 const WEEK_GOAL  = 20 * 60;
 const MONTH_GOAL = 80 * 60;
 // 6/16(월) 주부터 시작 (6/16~6/20 입력 가능)
@@ -429,10 +432,10 @@ function renderWeek() {
       <div class="input-group">
         <input class="time-input" type="number" min="0" max="24" placeholder="0"
           value="${data[i].h}" data-idx="${i}" data-type="h" inputmode="numeric">
-        <span class="time-label">시간</span>
+        <span class="time-label">Std</span>
         <input class="time-input" type="number" min="0" max="59" placeholder="0"
           value="${data[i].m}" data-idx="${i}" data-type="m" inputmode="numeric">
-        <span class="time-label">분</span>
+        <span class="time-label">Min</span>
       </div>
       <span class="day-total${mins===0?' zero':''}" id="dt_${i}">${mins>0?fmt(mins):'-'}</span>`;
     container.appendChild(row);
@@ -463,8 +466,8 @@ function updateWeek(totalMin) {
   document.getElementById('wTotal').textContent = fmt(totalMin);
   const remEl = document.getElementById('wRemaining');
   const remSub = document.getElementById('wRemSub');
-  if (rem >= 0) { remEl.textContent = fmt(rem); remEl.className = 'summary-value green'; remSub.textContent = '남은 시간'; }
-  else { remEl.textContent = '+' + fmt(-rem); remEl.className = 'summary-value red'; remSub.textContent = '초과 근무'; }
+  if (rem >= 0) { remEl.textContent = fmt(rem); remEl.className = 'summary-value green'; remSub.textContent = 'Verbleibend'; }
+  else { remEl.textContent = '+' + fmt(-rem); remEl.className = 'summary-value red'; remSub.textContent = 'Überstunden'; }
   document.getElementById('wPct').textContent = pct + '%';
   const bar = document.getElementById('wBar');
   bar.style.width = pct + '%';
@@ -472,7 +475,7 @@ function updateWeek(totalMin) {
 }
 
 function resetWeek() {
-  if (confirm('이번 주 기록을 초기화할까요?')) {
+  if (confirm('Diese Woche wirklich zurücksetzen?')) {
     localStorage.removeItem('wt_' + currentWeekKey);
     renderWeek(); updateMonthSummary();
   }
@@ -501,8 +504,8 @@ function updateMonthSummary() {
   document.getElementById('mTotal').textContent = fmt(totalMin);
   const remEl = document.getElementById('mRemaining');
   const remSub = document.getElementById('mRemSub');
-  if (rem >= 0) { remEl.textContent = fmt(rem); remEl.className = 'summary-value green'; remSub.textContent = '남은 시간'; }
-  else { remEl.textContent = '+' + fmt(-rem); remEl.className = 'summary-value red'; remSub.textContent = '초과 근무'; }
+  if (rem >= 0) { remEl.textContent = fmt(rem); remEl.className = 'summary-value green'; remSub.textContent = 'Verbleibend'; }
+  else { remEl.textContent = '+' + fmt(-rem); remEl.className = 'summary-value red'; remSub.textContent = 'Überstunden'; }
   document.getElementById('mPct').textContent = pct + '%';
   const bar = document.getElementById('mBar');
   bar.style.width = pct + '%';
@@ -510,7 +513,7 @@ function updateMonthSummary() {
 }
 
 function resetMonth() {
-  if (confirm('이번 달(20일~19일) 전체 기록을 초기화할까요?')) {
+  if (confirm('Diesen Monat (20.–19.) wirklich zurücksetzen?')) {
     getWeeksInCycle(currentMonthKey).forEach(wk => localStorage.removeItem('wt_' + wk));
     renderMonth(); renderWeek();
   }
@@ -536,7 +539,7 @@ function renderStats() {
   const totalMin = weekMins.reduce((s, w) => s + w.min, 0);
   const totalH = Math.floor(totalMin / 60);
   document.getElementById('sTotalH').textContent = totalH + 'h';
-  document.getElementById('sTotalWeeks').textContent = weekMins.length + '주';
+  document.getElementById('sTotalWeeks').textContent = weekMins.length + ' Wo.';
   const bestMin = weekMins.length ? Math.max(...weekMins.map(w => w.min)) : 0;
   document.getElementById('sBestWeek').textContent = Math.floor(bestMin/60) + 'h';
 
@@ -553,11 +556,11 @@ function renderStats() {
   document.getElementById('sMonthAvgDay').textContent = mDays > 0 ? fmt(avgDay) : '-';
   // 달성 예상일
   if (mTotal >= MONTH_GOAL) {
-    document.getElementById('sMonthETA').textContent = '✅ 달성 완료!';
+    document.getElementById('sMonthETA').textContent = '✅ Ziel erreicht!';
   } else if (mDays > 0) {
     const remain = MONTH_GOAL - mTotal;
     const daysNeeded = Math.ceil(remain / avgDay);
-    document.getElementById('sMonthETA').textContent = `약 ${daysNeeded}일 후`;
+    document.getElementById('sMonthETA').textContent = `in ca. ${daysNeeded} Tagen`;
   } else {
     document.getElementById('sMonthETA').textContent = '-';
   }
@@ -615,7 +618,7 @@ function renderStats() {
     const sorted = [...weekMins].sort((a,b)=>a.key>b.key?-1:1);
     let streak = 0;
     for (const w of sorted) { if (w.min >= WEEK_GOAL) streak++; else break; }
-    document.getElementById('sStreak').textContent = streak + '주';
+    document.getElementById('sStreak').textContent = streak + ' Wo.';
     const avgW = Math.round(weekMins.reduce((s,w)=>s+w.min,0) / weekMins.length);
     document.getElementById('sWeekAvg').textContent = fmt(avgW);
   } else {
