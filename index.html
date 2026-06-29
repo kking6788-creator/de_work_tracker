@@ -15,407 +15,618 @@
     color: #1C1C1E;
   }
 
-  h1 {
-    font-size: 26px;
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: 4px;
-    color: #1C1C1E;
-  }
+  h1 { font-size: 26px; font-weight: 700; text-align: center; margin-bottom: 4px; }
+  .subtitle { text-align: center; font-size: 13px; color: #8E8E93; margin-bottom: 20px; }
 
-  .subtitle {
-    text-align: center;
-    font-size: 13px;
-    color: #8E8E93;
-    margin-bottom: 20px;
-  }
-
-  /* 상단 요약 카드 */
-  .summary-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 20px;
-  }
-
-  .summary-card {
+  /* 탭 바 */
+  .tab-bar {
+    display: flex;
     background: white;
-    border-radius: 18px;
-    padding: 18px 16px;
+    border-radius: 14px;
+    padding: 4px;
+    margin-bottom: 20px;
     box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    gap: 4px;
   }
-
-  .summary-card.full {
-    grid-column: 1 / -1;
-  }
-
-  .summary-label {
-    font-size: 12px;
+  .tab-btn {
+    flex: 1;
+    padding: 10px 4px;
+    border: none;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    background: transparent;
     color: #8E8E93;
-    font-weight: 500;
-    margin-bottom: 6px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    transition: all 0.2s;
+  }
+  .tab-btn.active { background: #007AFF; color: white; }
+
+  /* 섹션 타이틀 */
+  .section-title {
+    font-size: 12px; font-weight: 700; color: #8E8E93;
+    text-transform: uppercase; letter-spacing: 0.8px;
+    margin-bottom: 10px; padding-left: 4px;
   }
 
-  .summary-value {
-    font-size: 28px;
-    font-weight: 700;
-    color: #1C1C1E;
+  /* 네비 바 */
+  .nav-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    background: white; border-radius: 18px; padding: 14px 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06); margin-bottom: 12px;
   }
+  .nav-bar button {
+    background: #F0F2F7; border: none; border-radius: 10px;
+    width: 36px; height: 36px; font-size: 18px; cursor: pointer; color: #007AFF;
+  }
+  .nav-label { font-size: 15px; font-weight: 600; color: #1C1C1E; }
 
-  .summary-value.accent { color: #007AFF; }
-  .summary-value.green  { color: #34C759; }
-  .summary-value.red    { color: #FF3B30; }
-  .summary-value.orange { color: #FF9500; }
+  /* 요약 카드 */
+  .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+  .summary-card { background: white; border-radius: 16px; padding: 14px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+  .summary-label { font-size: 11px; color: #8E8E93; font-weight: 500; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.4px; }
+  .summary-value { font-size: 20px; font-weight: 700; }
+  .summary-sub { font-size: 11px; color: #8E8E93; margin-top: 2px; }
+
+  .blue   { color: #007AFF; }
+  .green  { color: #34C759; }
+  .red    { color: #FF3B30; }
+  .purple { color: #AF52DE; }
+  .orange { color: #FF9500; }
 
   /* 진행 바 */
-  .progress-wrap {
-    background: white;
-    border-radius: 18px;
-    padding: 18px 16px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-    margin-bottom: 20px;
-  }
+  .progress-card { background: white; border-radius: 16px; padding: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); margin-bottom: 12px; }
+  .progress-header { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 8px; }
+  .progress-header span:first-child { font-weight: 600; color: #1C1C1E; }
+  .progress-header span:last-child { color: #8E8E93; font-weight: 600; }
+  .progress-bar-bg { background: #E5E5EA; border-radius: 8px; height: 12px; overflow: hidden; }
+  .progress-bar-fill { height: 100%; border-radius: 8px; transition: width 0.5s ease; }
+  .fill-blue   { background: linear-gradient(90deg, #007AFF, #5AC8FA); }
+  .fill-purple { background: linear-gradient(90deg, #AF52DE, #FF2D55); }
+  .fill-over   { background: linear-gradient(90deg, #FF9500, #FF3B30); }
 
-  .progress-header {
-    display: flex;
-    justify-content: space-between;
-    font-size: 13px;
-    color: #8E8E93;
-    margin-bottom: 10px;
-  }
-
-  .progress-bar-bg {
-    background: #E5E5EA;
-    border-radius: 8px;
-    height: 14px;
-    overflow: hidden;
-  }
-
-  .progress-bar-fill {
-    height: 100%;
-    border-radius: 8px;
-    transition: width 0.5s ease;
-    background: linear-gradient(90deg, #007AFF, #5AC8FA);
-  }
-
-  .progress-bar-fill.over {
-    background: linear-gradient(90deg, #FF9500, #FF3B30);
-  }
-
-  /* 요일 입력 섹션 */
-  .days-section {
-    background: white;
-    border-radius: 18px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-    overflow: hidden;
-    margin-bottom: 20px;
-  }
-
-  .days-title {
-    font-size: 15px;
-    font-weight: 600;
-    padding: 16px 16px 0;
-    color: #1C1C1E;
-    margin-bottom: 12px;
-  }
-
-  .day-row {
-    display: flex;
-    align-items: center;
-    padding: 12px 16px;
-    border-bottom: 1px solid #F2F2F7;
-    gap: 10px;
-  }
-
+  /* 요일 입력 */
+  .days-section { background: white; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); overflow: hidden; margin-bottom: 12px; }
+  .days-header { font-size: 14px; font-weight: 600; padding: 14px 16px 10px; color: #1C1C1E; border-bottom: 1px solid #F2F2F7; }
+  .day-row { display: flex; align-items: center; padding: 11px 16px; border-bottom: 1px solid #F2F2F7; gap: 10px; }
   .day-row:last-child { border-bottom: none; }
-
-  .day-name {
-    font-size: 15px;
-    font-weight: 600;
-    width: 28px;
-    color: #1C1C1E;
-    flex-shrink: 0;
-  }
-
-  .day-name.weekend { color: #FF3B30; }
-
-  .input-group {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    flex: 1;
-  }
-
+  .day-name-wrap { display: flex; flex-direction: column; align-items: center; width: 32px; flex-shrink: 0; }
+  .day-name { font-size: 15px; font-weight: 600; }
+  .day-date { font-size: 10px; color: #8E8E93; font-weight: 500; margin-top: 1px; }
+  .day-name.sat { color: #007AFF; }
+  .input-group { display: flex; align-items: center; gap: 4px; flex: 1; }
   .time-input {
-    width: 52px;
-    padding: 8px 6px;
-    border: 1.5px solid #E5E5EA;
-    border-radius: 10px;
-    font-size: 16px;
-    font-weight: 600;
-    text-align: center;
-    color: #1C1C1E;
-    background: #F9F9FB;
-    -webkit-appearance: none;
-    outline: none;
-    transition: border-color 0.2s;
+    width: 50px; padding: 7px 4px; border: 1.5px solid #E5E5EA; border-radius: 10px;
+    font-size: 16px; font-weight: 600; text-align: center; color: #1C1C1E;
+    background: #F9F9FB; -webkit-appearance: none; outline: none; transition: border-color 0.2s;
   }
+  .time-input:focus { border-color: #007AFF; background: white; }
+  .time-label { font-size: 12px; color: #8E8E93; }
+  .day-total { font-size: 13px; font-weight: 600; color: #007AFF; min-width: 50px; text-align: right; flex-shrink: 0; }
+  .day-total.zero { color: #C7C7CC; font-weight: 400; }
 
-  .time-input:focus {
-    border-color: #007AFF;
-    background: white;
-  }
+  /* 구분선 */
+  .divider { height: 1px; background: #E5E5EA; margin: 20px 0; }
 
-  .time-label {
-    font-size: 13px;
-    color: #8E8E93;
-  }
+  /* 완료 뱃지 */
+  .done-badge { display: inline-block; background: #34C759; color: white; font-size: 13px; font-weight: 700; padding: 5px 14px; border-radius: 20px; margin-bottom: 12px; }
 
-  .day-total {
-    font-size: 14px;
-    font-weight: 600;
-    color: #007AFF;
-    min-width: 48px;
-    text-align: right;
-    flex-shrink: 0;
-  }
-
-  .day-total.zero { color: #C7C7CC; }
-
-  /* 리셋 버튼 */
-  .reset-btn {
-    width: 100%;
-    padding: 16px;
-    background: #FF3B30;
-    color: white;
-    border: none;
-    border-radius: 14px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: 0 2px 12px rgba(255,59,48,0.25);
-    transition: opacity 0.15s;
-  }
-
+  /* 초기화 버튼 */
+  .reset-btn { width: 100%; padding: 15px; color: white; border: none; border-radius: 14px; font-size: 15px; font-weight: 600; cursor: pointer; transition: opacity 0.15s; margin-bottom: 8px; }
+  .reset-btn.week-reset  { background: #FF3B30; box-shadow: 0 2px 10px rgba(255,59,48,0.2); }
+  .reset-btn.month-reset { background: #AF52DE; box-shadow: 0 2px 10px rgba(175,82,222,0.2); }
   .reset-btn:active { opacity: 0.75; }
 
-  .week-nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    background: white;
-    border-radius: 18px;
-    padding: 14px 16px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-  }
+  /* ── 통계 탭 ── */
+  .stat-card { background: white; border-radius: 16px; padding: 18px 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); margin-bottom: 12px; }
+  .stat-card-title { font-size: 14px; font-weight: 700; color: #1C1C1E; margin-bottom: 14px; }
 
-  .week-nav button {
-    background: #F0F2F7;
-    border: none;
-    border-radius: 10px;
-    width: 36px;
-    height: 36px;
-    font-size: 18px;
-    cursor: pointer;
-    color: #007AFF;
-  }
+  .stat-row { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; border-bottom: 1px solid #F2F2F7; font-size: 14px; }
+  .stat-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .stat-row-label { color: #8E8E93; }
+  .stat-row-val { font-weight: 700; color: #1C1C1E; }
 
-  .week-label {
-    font-size: 15px;
-    font-weight: 600;
-    color: #1C1C1E;
-  }
+  /* 요일별 히트맵 바 */
+  .heatmap-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .heatmap-row:last-child { margin-bottom: 0; }
+  .heatmap-label { font-size: 13px; font-weight: 600; width: 22px; color: #8E8E93; flex-shrink: 0; }
+  .heatmap-bar-bg { flex: 1; background: #E5E5EA; border-radius: 6px; height: 10px; overflow: hidden; }
+  .heatmap-bar-fill { height: 100%; border-radius: 6px; background: linear-gradient(90deg, #007AFF, #5AC8FA); transition: width 0.5s ease; }
+  .heatmap-val { font-size: 12px; font-weight: 600; color: #8E8E93; width: 42px; text-align: right; flex-shrink: 0; }
+
+  /* 월별 추이 바 차트 */
+  .bar-chart { display: flex; align-items: flex-end; gap: 6px; height: 80px; margin-top: 12px; }
+  .bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; height: 100%; justify-content: flex-end; }
+  .bar-rect { width: 100%; border-radius: 6px 6px 0 0; min-height: 3px; transition: height 0.4s ease; }
+  .bar-lbl { font-size: 10px; color: #8E8E93; font-weight: 500; }
+  .bar-val { font-size: 10px; color: #007AFF; font-weight: 700; }
+
+  /* 달성률 링 대체 - 큰 숫자 카드 */
+  .big-stat-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+  .big-stat-card { background: white; border-radius: 14px; padding: 14px 8px; text-align: center; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+  .big-stat-num { font-size: 22px; font-weight: 800; }
+  .big-stat-lbl { font-size: 10px; color: #8E8E93; margin-top: 3px; font-weight: 500; }
 </style>
 </head>
 <body>
 
 <h1>⏱ 근무시간 체커</h1>
-<p class="subtitle">주 20시간 기준</p>
+<p class="subtitle">주 20h · 월 80h (매월 20일~19일)</p>
 
-<!-- 주차 네비 -->
-<div class="week-nav">
-  <button onclick="changeWeek(-1)">‹</button>
-  <span class="week-label" id="weekLabel"></span>
-  <button onclick="changeWeek(1)">›</button>
+<!-- 탭 -->
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab('main')">📋 기록</button>
+  <button class="tab-btn" onclick="switchTab('stats')">📊 통계</button>
 </div>
 
-<!-- 요약 카드 -->
-<div class="summary-grid">
-  <div class="summary-card">
-    <div class="summary-label">누적 근무</div>
-    <div class="summary-value accent" id="totalWorked">0h 0m</div>
+<!-- ══════════════ 기록 탭 ══════════════ -->
+<div id="mainTab">
+
+  <!-- 주별 섹션 -->
+  <div class="section-title">📅 주별</div>
+  <div class="nav-bar">
+    <button id="weekPrevBtn" onclick="changeWeek(-1)">‹</button>
+    <span class="nav-label" id="weekLabel"></span>
+    <button id="weekNextBtn" onclick="changeWeek(1)">›</button>
   </div>
-  <div class="summary-card">
-    <div class="summary-label">잔여 시간</div>
-    <div class="summary-value green" id="remaining">20h 0m</div>
+
+  <div class="summary-grid">
+    <div class="summary-card">
+      <div class="summary-label">주 누적 근무</div>
+      <div class="summary-value blue" id="wTotal">0h 0m</div>
+      <div class="summary-sub">목표 20h</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-label">주 잔여 시간</div>
+      <div class="summary-value green" id="wRemaining">20h 0m</div>
+      <div class="summary-sub" id="wRemSub">남은 시간</div>
+    </div>
   </div>
+
+  <div class="progress-card">
+    <div class="progress-header">
+      <span>주간 진행률</span><span id="wPct">0%</span>
+    </div>
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill fill-blue" id="wBar" style="width:0%"></div>
+    </div>
+  </div>
+
+  <div class="days-section">
+    <div class="days-header">요일별 근무 입력</div>
+    <div id="dayRows"></div>
+  </div>
+
+  <button class="reset-btn week-reset" onclick="resetWeek()">🗑 이번 주 초기화</button>
+
+  <div class="divider"></div>
+
+  <!-- 월별 섹션 -->
+  <div class="section-title">🗓 월별 (20일~19일)</div>
+  <div class="nav-bar">
+    <button onclick="changeMonth(-1)">‹</button>
+    <span class="nav-label" id="monthLabel"></span>
+    <button onclick="changeMonth(1)">›</button>
+  </div>
+
+  <div id="monthDoneBadge" style="display:none">
+    <span class="done-badge">✅ 이번 달 80시간 달성!</span>
+  </div>
+
+  <div class="summary-grid">
+    <div class="summary-card">
+      <div class="summary-label">월 누적 근무</div>
+      <div class="summary-value purple" id="mTotal">0h 0m</div>
+      <div class="summary-sub">목표 80h</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-label">월 잔여 시간</div>
+      <div class="summary-value green" id="mRemaining">80h 0m</div>
+      <div class="summary-sub" id="mRemSub">남은 시간</div>
+    </div>
+  </div>
+
+  <div class="progress-card">
+    <div class="progress-header">
+      <span>월간 진행률</span><span id="mPct">0%</span>
+    </div>
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill fill-purple" id="mBar" style="width:0%"></div>
+    </div>
+  </div>
+
+  <button class="reset-btn month-reset" onclick="resetMonth()">🗑 이번 달 초기화</button>
 </div>
 
-<!-- 진행 바 -->
-<div class="progress-wrap">
-  <div class="progress-header">
-    <span>이번 주 진행률</span>
-    <span id="progressPct">0%</span>
-  </div>
-  <div class="progress-bar-bg">
-    <div class="progress-bar-fill" id="progressBar" style="width:0%"></div>
-  </div>
-</div>
+<!-- ══════════════ 통계 탭 ══════════════ -->
+<div id="statsTab" style="display:none">
 
-<!-- 요일별 입력 -->
-<div class="days-section">
-  <div class="days-title">요일별 근무 입력</div>
-  <div id="dayRows"></div>
-</div>
+  <!-- 전체 요약 3개 숫자 -->
+  <div class="section-title">📌 누적 전체</div>
+  <div class="big-stat-grid">
+    <div class="big-stat-card">
+      <div class="big-stat-num blue" id="sTotalH">0</div>
+      <div class="big-stat-lbl">총 근무시간</div>
+    </div>
+    <div class="big-stat-card">
+      <div class="big-stat-num purple" id="sTotalWeeks">0</div>
+      <div class="big-stat-lbl">기록된 주차</div>
+    </div>
+    <div class="big-stat-card">
+      <div class="big-stat-num orange" id="sBestWeek">0h</div>
+      <div class="big-stat-lbl">최고 주간</div>
+    </div>
+  </div>
 
-<!-- 리셋 -->
-<button class="reset-btn" onclick="resetWeek()">🗑 이번 주 초기화</button>
+  <!-- 이번 달 상세 -->
+  <div class="section-title">📅 이번 달 분석</div>
+  <div class="stat-card">
+    <div class="stat-card-title">월간 현황</div>
+    <div class="stat-row"><span class="stat-row-label">달성률</span><span class="stat-row-val" id="sMonthRate">0%</span></div>
+    <div class="stat-row"><span class="stat-row-label">일평균 근무</span><span class="stat-row-val" id="sMonthAvgDay">0h 0m</span></div>
+    <div class="stat-row"><span class="stat-row-label">80h 달성 예상일</span><span class="stat-row-val" id="sMonthETA">계산 중</span></div>
+  </div>
+
+  <!-- 요일별 평균 히트맵 -->
+  <div class="section-title">📆 요일별 평균 근무</div>
+  <div class="stat-card">
+    <div id="heatmapRows"></div>
+  </div>
+
+  <!-- 최근 6주 추이 -->
+  <div class="section-title">📈 최근 6주 근무시간</div>
+  <div class="stat-card">
+    <div class="bar-chart" id="barChart"></div>
+  </div>
+
+  <!-- 주간 성과 -->
+  <div class="section-title">🏆 기록</div>
+  <div class="stat-card">
+    <div class="stat-card-title">주간 기록</div>
+    <div class="stat-row"><span class="stat-row-label">🥇 최고 근무 주</span><span class="stat-row-val" id="sBestWeekDate">-</span></div>
+    <div class="stat-row"><span class="stat-row-label">📉 최저 근무 주</span><span class="stat-row-val" id="sWorstWeekDate">-</span></div>
+    <div class="stat-row"><span class="stat-row-label">🔥 연속 달성 주</span><span class="stat-row-val" id="sStreak">0주</span></div>
+    <div class="stat-row"><span class="stat-row-label">⌀ 주간 평균</span><span class="stat-row-val" id="sWeekAvg">0h 0m</span></div>
+  </div>
+
+</div>
 
 <script>
-const DAYS = ['월','화','수','목','금','토','일'];
-const WEEKEND = [5, 6];
-const GOAL = 20 * 60; // 20시간 (분)
+const DAYS = ['월','화','수','목','금','토'];
+const WEEK_GOAL  = 20 * 60;
+const MONTH_GOAL = 80 * 60;
+// 6/16(월) 주부터 시작 (6/16~6/20 입력 가능)
+const START_WEEK = '2025-06-16';
 
-let currentWeekKey = getWeekKey(new Date());
+let currentWeekKey  = getWeekKey(new Date());
+let currentMonthKey = getMonthCycleKey(new Date());
+
+// 'YYYY-MM-DD' 문자열을 로컬 날짜로 파싱 (UTC 오프셋 버그 방지)
+function parseLocalDate(str) {
+  const [y, m, d] = str.split('-').map(Number);
+  return new Date(y, m - 1, d);
+}
+
+/* ── 키 헬퍼 ── */
+// 로컬 날짜로 포맷 (UTC 오프셋 버그 방지)
+function localDateStr(d) {
+  const y = d.getFullYear();
+  const m = String(d.getMonth()+1).padStart(2,'0');
+  const day = String(d.getDate()).padStart(2,'0');
+  return `${y}-${m}-${day}`;
+}
 
 function getWeekKey(date) {
   const d = new Date(date);
   d.setHours(0,0,0,0);
   d.setDate(d.getDate() - ((d.getDay() + 6) % 7)); // 월요일 기준
-  return d.toISOString().slice(0,10);
+  return localDateStr(d);
 }
 
-function getWeekLabel(weekKey) {
-  const start = new Date(weekKey);
-  const end = new Date(weekKey);
-  end.setDate(end.getDate() + 6);
-  const fmt = d => `${d.getMonth()+1}/${d.getDate()}`;
-  return `${fmt(start)} ~ ${fmt(end)}`;
+function getMonthCycleKey(date) {
+  const d = new Date(date);
+  const y = d.getFullYear(), mo = d.getMonth() + 1, day = d.getDate();
+  // 20일 이후면 이번달 사이클, 19일 이하면 전달 사이클
+  if (day >= 20) return `${y}-${String(mo).padStart(2,'0')}`;
+  const pm = mo === 1 ? 12 : mo - 1;
+  const py = mo === 1 ? y - 1 : y;
+  return `${py}-${String(pm).padStart(2,'0')}`;
 }
 
-function changeWeek(delta) {
-  const d = new Date(currentWeekKey);
-  d.setDate(d.getDate() + delta * 7);
-  currentWeekKey = getWeekKey(d);
-  renderApp();
+function getMonthCycleLabel(k) {
+  const [y, m] = k.split('-').map(Number);
+  const nm = m === 12 ? 1 : m + 1;
+  const ny = m === 12 ? y + 1 : y;
+  return `${y}.${String(m).padStart(2,'0')}.20 ~ ${ny}.${String(nm).padStart(2,'0')}.19`;
 }
 
-function loadData(weekKey) {
-  const raw = localStorage.getItem('wt_' + weekKey);
-  return raw ? JSON.parse(raw) : DAYS.map(() => ({ h: '', m: '' }));
+function getWeekLabel(k) {
+  const [y,m,d] = k.split('-').map(Number);
+  const s = new Date(y, m-1, d);
+  const e = new Date(y, m-1, d+5);
+  const f = dt => `${dt.getMonth()+1}/${dt.getDate()}`;
+  return `${f(s)} ~ ${f(e)}`;
 }
 
-function saveData(weekKey, data) {
-  localStorage.setItem('wt_' + weekKey, JSON.stringify(data));
+function getWeeksInCycle(k) {
+  const [y, m] = k.split('-').map(Number);
+  const start = new Date(y, m - 1, 20);
+  const nm = m === 12 ? 1 : m + 1;
+  const ny = m === 12 ? y + 1 : y;
+  const end = new Date(ny, nm - 1, 19);
+  // end를 자정으로 맞춰서 비교
+  end.setHours(23,59,59,0);
+  const weeks = [];
+  let cur = new Date(start);
+  cur.setHours(0,0,0,0);
+  cur.setDate(cur.getDate() - ((cur.getDay() + 6) % 7));
+  while (cur <= end) {
+    const wk = getWeekKey(cur);
+    if (!weeks.includes(wk)) weeks.push(wk);
+    cur.setDate(cur.getDate() + 7);
+  }
+  return weeks;
 }
 
-function toMinutes(h, m) {
-  const hv = parseInt(h) || 0;
-  const mv = parseInt(m) || 0;
-  return hv * 60 + mv;
+/* ── 탭 ── */
+function switchTab(tab) {
+  document.getElementById('mainTab').style.display  = tab === 'main'  ? 'block' : 'none';
+  document.getElementById('statsTab').style.display = tab === 'stats' ? 'block' : 'none';
+  document.querySelectorAll('.tab-btn').forEach((b, i) => {
+    b.classList.toggle('active', (i===0 && tab==='main') || (i===1 && tab==='stats'));
+  });
+  if (tab === 'stats') renderStats();
 }
 
-function fmtTime(minutes) {
-  const h = Math.floor(Math.abs(minutes) / 60);
-  const m = Math.abs(minutes) % 60;
+/* ── 데이터 ── */
+function loadWeek(k) {
+  const r = localStorage.getItem('wt_' + k);
+  return r ? JSON.parse(r) : DAYS.map(() => ({ h: '', m: '' }));
+}
+function saveWeek(k, d) { localStorage.setItem('wt_' + k, JSON.stringify(d)); }
+function toMin(h, m) { return (parseInt(h)||0)*60 + (parseInt(m)||0); }
+function fmt(min) {
+  const h = Math.floor(Math.abs(min)/60), m = Math.abs(min)%60;
   return `${h}h ${m}m`;
 }
 
-function renderApp() {
-  document.getElementById('weekLabel').textContent = getWeekLabel(currentWeekKey);
+/* ── 주별 ── */
+function changeWeek(d) {
+  const dt = new Date(currentWeekKey);
+  dt.setDate(dt.getDate() + d * 7);
+  const newKey = getWeekKey(dt);
+  if (newKey < START_WEEK) return; // 시작일 이전으로 이동 불가
+  currentWeekKey = newKey;
+  renderWeek();
+}
 
-  const data = loadData(currentWeekKey);
+function updateWeekNavButtons() {
+  const prevBtn = document.getElementById('weekPrevBtn');
+  const isAtStart = currentWeekKey <= START_WEEK;
+  prevBtn.style.opacity = isAtStart ? '0.3' : '1';
+  prevBtn.style.pointerEvents = isAtStart ? 'none' : 'auto';
+}
+
+function renderWeek() {
+  document.getElementById('weekLabel').textContent = getWeekLabel(currentWeekKey);
+  const data = loadWeek(currentWeekKey);
   const container = document.getElementById('dayRows');
   container.innerHTML = '';
-
-  let totalMin = 0;
-
+  let total = 0;
+  const [wy,wm,wd] = currentWeekKey.split('-').map(Number);
   DAYS.forEach((name, i) => {
+    const mins = toMin(data[i].h, data[i].m);
+    total += mins;
+    const dayDate = new Date(wy, wm-1, wd + i);
+    const dateStr = `${dayDate.getMonth()+1}/${dayDate.getDate()}`;
     const row = document.createElement('div');
     row.className = 'day-row';
-
-    const isWeekend = WEEKEND.includes(i);
-    const mins = toMinutes(data[i].h, data[i].m);
-    totalMin += mins;
-
     row.innerHTML = `
-      <span class="day-name ${isWeekend ? 'weekend' : ''}">${name}</span>
+      <div class="day-name-wrap">
+        <span class="day-name${i===5?' sat':''}">${name}</span>
+        <span class="day-date">${dateStr}</span>
+      </div>
       <div class="input-group">
         <input class="time-input" type="number" min="0" max="24" placeholder="0"
-          value="${data[i].h}" data-idx="${i}" data-type="h"
-          inputmode="numeric" />
+          value="${data[i].h}" data-idx="${i}" data-type="h" inputmode="numeric">
         <span class="time-label">시간</span>
         <input class="time-input" type="number" min="0" max="59" placeholder="0"
-          value="${data[i].m}" data-idx="${i}" data-type="m"
-          inputmode="numeric" />
+          value="${data[i].m}" data-idx="${i}" data-type="m" inputmode="numeric">
         <span class="time-label">분</span>
       </div>
-      <span class="day-total ${mins === 0 ? 'zero' : ''}" id="dayTotal_${i}">
-        ${mins > 0 ? fmtTime(mins) : '-'}
-      </span>
-    `;
+      <span class="day-total${mins===0?' zero':''}" id="dt_${i}">${mins>0?fmt(mins):'-'}</span>`;
     container.appendChild(row);
   });
-
-  // 인풋 이벤트
-  container.querySelectorAll('.time-input').forEach(input => {
-    input.addEventListener('input', onInput);
-  });
-
-  updateSummary(totalMin);
+  container.querySelectorAll('.time-input').forEach(inp => inp.addEventListener('input', onWeekInput));
+  updateWeek(total);
+  updateWeekNavButtons();
 }
 
-function onInput(e) {
-  const idx = parseInt(e.target.dataset.idx);
-  const type = e.target.dataset.type;
-  const data = loadData(currentWeekKey);
+function onWeekInput(e) {
+  const idx = parseInt(e.target.dataset.idx), type = e.target.dataset.type;
+  const data = loadWeek(currentWeekKey);
   data[idx][type] = e.target.value;
-  saveData(currentWeekKey, data);
-
-  // 해당 행 합계 업데이트
-  const mins = toMinutes(data[idx].h, data[idx].m);
-  const el = document.getElementById('dayTotal_' + idx);
-  el.textContent = mins > 0 ? fmtTime(mins) : '-';
-  el.className = 'day-total ' + (mins === 0 ? 'zero' : '');
-
-  // 전체 합계 재계산
+  saveWeek(currentWeekKey, data);
+  const mins = toMin(data[idx].h, data[idx].m);
+  const el = document.getElementById('dt_' + idx);
+  el.textContent = mins > 0 ? fmt(mins) : '-';
+  el.className = 'day-total' + (mins === 0 ? ' zero' : '');
   let total = 0;
-  data.forEach(d => total += toMinutes(d.h, d.m));
-  updateSummary(total);
+  data.forEach(d => total += toMin(d.h, d.m));
+  updateWeek(total);
+  updateMonthSummary();
 }
 
-function updateSummary(totalMin) {
-  const remMin = GOAL - totalMin;
-  const pct = Math.min(Math.round(totalMin / GOAL * 100), 100);
-
-  document.getElementById('totalWorked').textContent = fmtTime(totalMin);
-
-  const remEl = document.getElementById('remaining');
-  if (remMin >= 0) {
-    remEl.textContent = fmtTime(remMin);
-    remEl.className = 'summary-value green';
-  } else {
-    remEl.textContent = '+' + fmtTime(-remMin) + ' 초과';
-    remEl.className = 'summary-value red';
-  }
-
-  document.getElementById('progressPct').textContent = pct + '%';
-  const bar = document.getElementById('progressBar');
+function updateWeek(totalMin) {
+  const rem = WEEK_GOAL - totalMin;
+  const pct = Math.min(Math.round(totalMin / WEEK_GOAL * 100), 100);
+  document.getElementById('wTotal').textContent = fmt(totalMin);
+  const remEl = document.getElementById('wRemaining');
+  const remSub = document.getElementById('wRemSub');
+  if (rem >= 0) { remEl.textContent = fmt(rem); remEl.className = 'summary-value green'; remSub.textContent = '남은 시간'; }
+  else { remEl.textContent = '+' + fmt(-rem); remEl.className = 'summary-value red'; remSub.textContent = '초과 근무'; }
+  document.getElementById('wPct').textContent = pct + '%';
+  const bar = document.getElementById('wBar');
   bar.style.width = pct + '%';
-  bar.className = 'progress-bar-fill' + (totalMin > GOAL ? ' over' : '');
+  bar.className = 'progress-bar-fill ' + (totalMin > WEEK_GOAL ? 'fill-over' : 'fill-blue');
 }
 
 function resetWeek() {
-  if (confirm('이번 주 기록을 모두 초기화할까요?')) {
+  if (confirm('이번 주 기록을 초기화할까요?')) {
     localStorage.removeItem('wt_' + currentWeekKey);
-    renderApp();
+    renderWeek(); updateMonthSummary();
   }
 }
 
-renderApp();
+/* ── 월별 ── */
+function changeMonth(d) {
+  const [y, m] = currentMonthKey.split('-').map(Number);
+  const dt = new Date(y, m - 1 + d, 1);
+  currentMonthKey = `${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,'0')}`;
+  renderMonth();
+}
+
+function renderMonth() {
+  document.getElementById('monthLabel').textContent = getMonthCycleLabel(currentMonthKey);
+  updateMonthSummary();
+}
+
+function updateMonthSummary() {
+  const weeks = getWeeksInCycle(currentMonthKey);
+  let totalMin = 0;
+  weeks.forEach(wk => { const d = loadWeek(wk); d.forEach(x => totalMin += toMin(x.h, x.m)); });
+  const rem = MONTH_GOAL - totalMin;
+  const pct = Math.min(Math.round(totalMin / MONTH_GOAL * 100), 100);
+  document.getElementById('monthDoneBadge').style.display = totalMin >= MONTH_GOAL ? 'block' : 'none';
+  document.getElementById('mTotal').textContent = fmt(totalMin);
+  const remEl = document.getElementById('mRemaining');
+  const remSub = document.getElementById('mRemSub');
+  if (rem >= 0) { remEl.textContent = fmt(rem); remEl.className = 'summary-value green'; remSub.textContent = '남은 시간'; }
+  else { remEl.textContent = '+' + fmt(-rem); remEl.className = 'summary-value red'; remSub.textContent = '초과 근무'; }
+  document.getElementById('mPct').textContent = pct + '%';
+  const bar = document.getElementById('mBar');
+  bar.style.width = pct + '%';
+  bar.className = 'progress-bar-fill ' + (totalMin > MONTH_GOAL ? 'fill-over' : 'fill-purple');
+}
+
+function resetMonth() {
+  if (confirm('이번 달(20일~19일) 전체 기록을 초기화할까요?')) {
+    getWeeksInCycle(currentMonthKey).forEach(wk => localStorage.removeItem('wt_' + wk));
+    renderMonth(); renderWeek();
+  }
+}
+
+/* ── 통계 ── */
+function getAllWeekKeys() {
+  const keys = [];
+  for (let i = 0; i < localStorage.length; i++) {
+    const k = localStorage.key(i);
+    if (k && k.startsWith('wt_')) keys.push(k.replace('wt_', ''));
+  }
+  return keys.sort();
+}
+
+function renderStats() {
+  const allKeys = getAllWeekKeys();
+  const weekMins = allKeys.map(k => {
+    const d = loadWeek(k); let t = 0; d.forEach(x => t += toMin(x.h, x.m)); return { key: k, min: t };
+  }).filter(w => w.min > 0);
+
+  // 전체 요약
+  const totalMin = weekMins.reduce((s, w) => s + w.min, 0);
+  const totalH = Math.floor(totalMin / 60);
+  document.getElementById('sTotalH').textContent = totalH + 'h';
+  document.getElementById('sTotalWeeks').textContent = weekMins.length + '주';
+  const bestMin = weekMins.length ? Math.max(...weekMins.map(w => w.min)) : 0;
+  document.getElementById('sBestWeek').textContent = Math.floor(bestMin/60) + 'h';
+
+  // 이번 달 분석
+  const mWeeks = getWeeksInCycle(currentMonthKey);
+  let mTotal = 0, mDays = 0;
+  mWeeks.forEach(wk => {
+    const d = loadWeek(wk);
+    d.forEach(x => { const m = toMin(x.h, x.m); mTotal += m; if (m > 0) mDays++; });
+  });
+  const mRate = Math.min(Math.round(mTotal / MONTH_GOAL * 100), 100);
+  document.getElementById('sMonthRate').textContent = mRate + '%';
+  const avgDay = mDays > 0 ? Math.round(mTotal / mDays) : 0;
+  document.getElementById('sMonthAvgDay').textContent = mDays > 0 ? fmt(avgDay) : '-';
+  // 달성 예상일
+  if (mTotal >= MONTH_GOAL) {
+    document.getElementById('sMonthETA').textContent = '✅ 달성 완료!';
+  } else if (mDays > 0) {
+    const remain = MONTH_GOAL - mTotal;
+    const daysNeeded = Math.ceil(remain / avgDay);
+    document.getElementById('sMonthETA').textContent = `약 ${daysNeeded}일 후`;
+  } else {
+    document.getElementById('sMonthETA').textContent = '-';
+  }
+
+  // 요일별 평균 히트맵
+  const dayTotals = DAYS.map(() => ({ sum: 0, cnt: 0 }));
+  allKeys.forEach(k => {
+    const d = loadWeek(k);
+    d.forEach((x, i) => { const m = toMin(x.h, x.m); if (m > 0) { dayTotals[i].sum += m; dayTotals[i].cnt++; } });
+  });
+  const maxAvg = Math.max(...dayTotals.map(d => d.cnt ? d.sum/d.cnt : 0), 1);
+  const heatmap = document.getElementById('heatmapRows');
+  heatmap.innerHTML = '';
+  DAYS.forEach((name, i) => {
+    const avg = dayTotals[i].cnt ? Math.round(dayTotals[i].sum / dayTotals[i].cnt) : 0;
+    const pct = Math.round(avg / maxAvg * 100);
+    heatmap.innerHTML += `
+      <div class="heatmap-row">
+        <span class="heatmap-label">${name}</span>
+        <div class="heatmap-bar-bg"><div class="heatmap-bar-fill" style="width:${pct}%"></div></div>
+        <span class="heatmap-val">${avg > 0 ? fmt(avg) : '-'}</span>
+      </div>`;
+  });
+
+  // 최근 6주 바 차트
+  const recent6 = allKeys.slice(-6).map(k => {
+    const d = loadWeek(k); let t = 0; d.forEach(x => t += toMin(x.h, x.m));
+    const s = new Date(k); return { label: `${s.getMonth()+1}/${s.getDate()}`, min: t };
+  });
+  // 기록이 없어도 6개 슬롯 채우기
+  while (recent6.length < 6) recent6.unshift({ label: '-', min: 0 });
+  const maxBar = Math.max(...recent6.map(w => w.min), 1);
+  const chart = document.getElementById('barChart');
+  chart.innerHTML = '';
+  recent6.forEach(w => {
+    const h = Math.round(w.min / maxBar * 100);
+    const color = w.min >= WEEK_GOAL ? '#34C759' : w.min > 0 ? '#007AFF' : '#E5E5EA';
+    const hLabel = w.min > 0 ? Math.floor(w.min/60) + 'h' : '';
+    chart.innerHTML += `
+      <div class="bar-col">
+        <div class="bar-val">${hLabel}</div>
+        <div class="bar-rect" style="height:${h}%;background:${color}"></div>
+        <div class="bar-lbl">${w.label}</div>
+      </div>`;
+  });
+
+  // 주간 기록
+  if (weekMins.length) {
+    const best  = weekMins.reduce((a,b) => a.min>b.min?a:b);
+    const worst = weekMins.reduce((a,b) => a.min<b.min?a:b);
+    const bs = new Date(best.key), ws = new Date(worst.key);
+    document.getElementById('sBestWeekDate').textContent  = `${bs.getMonth()+1}/${bs.getDate()} (${fmt(best.min)})`;
+    document.getElementById('sWorstWeekDate').textContent = `${ws.getMonth()+1}/${ws.getDate()} (${fmt(worst.min)})`;
+    // 연속 달성
+    const sorted = [...weekMins].sort((a,b)=>a.key>b.key?-1:1);
+    let streak = 0;
+    for (const w of sorted) { if (w.min >= WEEK_GOAL) streak++; else break; }
+    document.getElementById('sStreak').textContent = streak + '주';
+    const avgW = Math.round(weekMins.reduce((s,w)=>s+w.min,0) / weekMins.length);
+    document.getElementById('sWeekAvg').textContent = fmt(avgW);
+  } else {
+    ['sBestWeekDate','sWorstWeekDate','sWeekAvg'].forEach(id => document.getElementById(id).textContent = '-');
+    document.getElementById('sStreak').textContent = '0주';
+  }
+}
+
+// 초기 실행
+renderWeek();
+renderMonth();
 </script>
 </body>
 </html>
